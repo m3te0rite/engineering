@@ -1,44 +1,43 @@
-# Google Sites Proxy Server
+# Google Sites Proxy
 
-This project provides a proxy server to embed Google Sites in iframes by stripping X-Frame-Options and other security headers that prevent embedding.
+This project provides a Vercel serverless function to embed Google Sites in iframes by stripping X-Frame-Options and other security headers that prevent embedding.
 
-## Setup
+## Vercel Deployment
 
-1. Install Node.js if you don't have it already: https://nodejs.org/
+This project is designed to be deployed on Vercel:
 
+1. Push your code to GitHub
+2. Import the project in Vercel
+3. Deploy - Vercel will automatically detect the serverless function
+
+The proxy will be available at `https://your-project.vercel.app/api/proxy`
+
+## Local Development (Optional)
+
+If you want to run locally with the Express server:
+
+1. Install Node.js: https://nodejs.org/
 2. Install dependencies:
 ```bash
 npm install
 ```
-
-## Running the Server
-
-Start the proxy server:
+3. Start the server:
 ```bash
 npm start
 ```
-
-The server will run on `http://localhost:3000` and proxy requests to your Google Sites page.
-
-## Usage
-
-1. Start the proxy server with `npm start`
-2. Open `index.html` in your browser
-3. The iframe will load your Google Sites page through the proxy
+4. Update `index.html` iframe src to `http://localhost:3000`
 
 ## How It Works
 
-The proxy server:
+The serverless function:
 - Fetches content from the Google Sites URL
 - Strips X-Frame-Options, Content-Security-Policy, and other security headers
 - Sets permissive headers to allow iframe embedding
-- Proxies all assets (CSS, JS, images) to ensure the page renders correctly
+- Returns the proxied content to the iframe
 
 ## Customization
 
-To proxy a different Google Sites URL, edit the `TARGET_URL` variable in `server.js`:
+To proxy a different Google Sites URL, edit the `TARGET_URL` variable in `api/proxy.js`:
 ```javascript
 const TARGET_URL = 'https://sites.google.com/YOUR_URL';
 ```
-
-Then update the iframe src in `index.html` to match your proxy server port.
